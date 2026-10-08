@@ -1,0 +1,90 @@
+# TAREA 1: Análisis
+analisis_y_planificacion:
+  description: >
+    Analizá el siguiente programa académico. 
+    1. Verificá completitud (carga horaria, contenidos mínimos, bibliografía). Si falta algo crítico, el output debe ser únicamente una solicitud de los datos faltantes.
+    2. Fijá la audiencia inferida (universitario, posgrado o formación profesional).
+    3. Evaluá viabilidad: si una unidad tiene muy poca carga horaria, proponé fusionarla.
+    
+    Programa analítico:
+    {contexto}
+  expected_output: >
+    Un dictamen de planificación estructurado que indique las unidades aprobadas, la audiencia fijada y las recomendaciones de fusión si las hubiera.
+  agent: 01_analista_academico
+
+# TAREA 2: La Clase
+diseno_clase_audiovisual:
+  description: >
+    Basándote en el siguiente plan académico aprobado, diseñá la sección "1. La Clase" para todas las unidades indicadas.
+    Estructurá para cada unidad:
+    - Video-lección principal (cápsulas de 20-30 min máx).
+    - Video resumen (short IA de 2 min).
+    - Diapositivas de apoyo (PDF).
+    
+    Plan Académico Aprobado:
+    {contexto}
+  expected_output: >
+    El texto completo de la sección "1. La Clase" para todas las unidades.
+  agent: 02_disenador_instruccional
+
+# TAREA 3: La Lectura
+diseno_lectura_teorica:
+  description: >
+    Tomá los contenidos de "La Clase" generados en el paso anterior y diseñá la sección "2. La Lectura" para cada unidad.
+    Estructurá:
+    - Lectura corta: Glosario terminológico de lo tratado en las clases.
+    - Lectura corta: FAQ (~20 preguntas).
+    - Infografía de síntesis.
+    - Lectura larga: PDFs del docente (bibliografía obligatoria).
+    
+    Contenido de las Clases:
+    {contexto}
+  expected_output: >
+    El texto completo de la sección "2. La Lectura" para todas las unidades.
+  agent: 02_disenador_instruccional
+
+# TAREA 4: La Práctica
+diseno_practica_gamificada:
+  description: >
+    Apoyándote en "La Lectura" y "La Clase" diseñá la sección "3. La Práctica" para cada unidad.
+    Incluí:
+    - Consigna orientadora (mencionando explícitamente los videos).
+    - Trivia SCORM (contrarreloj, dificultad).
+    - Conecta Bloques (emparejamiento usando el glosario).
+    - Calificación en Moodle.
+    
+    Contenido de Lectura y Clase:
+    {contexto}
+  expected_output: >
+    El texto completo de la sección "3. La Práctica" para todas las unidades.
+  agent: 02_disenador_instruccional
+
+# TAREA 5: Auditoría y Ensamblaje
+ensamblaje_y_auditoria:
+  description: >
+    Recibiste todas las secciones generadas por el diseñador.
+    1. Ensamblá todo en un documento final.
+    2. Aplicá correcciones técnicas obligatorias a lo redactado:
+       - Agregá 'target="_blank"' a cualquier enlace que haya.
+       - Asegurate de que se mencione que los PDFs están en "carpetas temáticas" (no listas planas).
+       - Asegurate de que el examen final sumativo tenga "acceso condicionado (candado)".
+       - Asegurate de que la trivia indique "sin numeración rígida".
+    
+    Borrador de todo el contenido:
+    {contexto}
+  expected_output: >
+    El archivo Markdown FINAL y definitivo, usando LITERALMENTE esta plantilla de salida por cada unidad:
+    
+    ## Unidad N: [nombre]
+
+    **1. La Clase**
+    [contenido adaptado]
+
+    **2. La Lectura**
+    [contenido adaptado]
+
+    **3. La Práctica**
+    [contenido adaptado]
+
+    ✓ Checklist técnico verificado
+  agent: 03_auditor_tecnico_moodle
