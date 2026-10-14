@@ -1,0 +1,9 @@
+Unidad 1: Introducción a la Andragogía y Modelos de Aprendizaje Adulto
+Carga horaria: 10 horas
+Contenidos mínimos: Teoría del aprendizaje adulto de Knowles, principios de andragogía, teoría de carga cognitiva (Sweller), motivación intrínseca vs extrínseca en entornos virtuales.
+Bibliografía obligatoria: Knowles, M. S. (1984). The Adult Learner: A Neglected Species. Gulf Publishing.
+
+Unidad 2: Arquitectura y Diseño Instruccional en Moodle
+Carga horaria: 15 horas
+Contenidos mínimos: Estructura del curso virtual, configuración de cuestionarios y paquetes SCORM, foros de debate y consultas, diseño de actividades gamificadas y condicionales de acceso.
+Bibliografía obligatoria: Documentación oficial Moodle (2024). Moodle Course Administration and Gamification Standards.

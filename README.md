@@ -30,15 +30,20 @@ El flujo de trabajo está diseñado con un control de calidad cruzado:
 
 ---
 
-## ⚙️ Características Técnicas
+## ⚙️ Características Técnicas y Mejoras
 
-- **Sin frameworks pesados:** No utiliza CrewAI ni AutoGen, evadiendo problemas de dependencias con numpy o incompatibilidades en Windows. Se usa Python puro y la librería liviana `google-generativeai`.
-- **Integración YAML:** Arquitectura ordenada donde las configuraciones del modelo, los perfiles de agentes (`config/agents.yaml`) y las instrucciones paso a paso (`config/tasks.yaml`) están separadas del código ejecutable.
-- **Context Passing:** Cada agente hereda el contexto de lo que hizo el agente anterior, garantizando coherencia absoluta entre los videos propuestos y los glosarios resultantes.
+- **Nuevo SDK Oficial Google GenAI (`google-genai`):** Compatible con la API actual de Gemini (con fallback automático a `google-generativeai`).
+- **Soporte para modelos modernos:** Configurado por defecto con `gemini-2.5-flash` (más rápido, preciso y económico).
+- **Sin frameworks pesados:** No requiere CrewAI ni AutoGen, evitando problemas de dependencias pesadas y garantizando compatibilidad total en Windows, Mac y Linux.
+- **Soporte para variables en `.env`:** Carga automática mediante `python-dotenv` para no tener que configurar variables de entorno en cada sesión de terminal.
+- **CLI flexible:** Soporte para parámetros de consola (`--input`, `--output`, `--model`, `--mock`, `--verbose`).
+- **Modo Simulación (`--mock`):** Permite ejecutar todo el pipeline con respuestas realistas de prueba sin consumir cuota ni requerir API key.
+- **Integración YAML:** Arquitectura ordenada donde los perfiles de agentes (`config/agents.yaml`) y las instrucciones (`config/tasks.yaml`) están desacoplados del código ejecutable.
+- **Compatibilidad UTF-8:** Soporte robusto de codificación para consolas Windows (PowerShell / CMD).
 
 ---
 
-## 🚀 Cómo instalar y activarlo
+## 🚀 Cómo instalar y ejecutar
 
 ### 1. Clonar el repositorio
 ```bash
@@ -46,39 +51,71 @@ git clone https://github.com/superpollo02/agente-aula-nueva.git
 cd agente-aula-nueva
 ```
 
-### 2. Preparar el entorno (Opcional pero recomendado)
+### 2. Preparar el entorno virtual
 ```bash
 python -m venv venv
-# En Windows:
+
+# En Windows (PowerShell):
 .\venv\Scripts\activate
+
 # En Mac/Linux:
 source venv/bin/activate
 ```
 
-### 3. Instalar librerías ligeras
-Solo necesitas la librería de Google y PyYAML para leer las configuraciones.
+### 3. Instalar librerías
 ```bash
-pip install google-generativeai pyyaml
+pip install -r requirements.txt
 ```
 
-### 4. Configurar API Key
-Necesitás una API Key gratuita de Gemini (obtenible en Google AI Studio).
+### 4. Configurar tu API Key de Gemini
+Obtené tu clave gratuita en [Google AI Studio](https://aistudio.google.com/).
 
-**En PowerShell (Windows):**
-```powershell
-$env:GEMINI_API_KEY="TU_CLAVE_AQUI"
-```
-**En Bash (Mac/Linux):**
+Podés configurarla de dos formas:
+
+**Opción A (Recomendada - Archivo `.env`):**
+Copiá el archivo de ejemplo y colocá tu clave:
 ```bash
-export GEMINI_API_KEY="TU_CLAVE_AQUI"
+cp .env.example .env
+```
+Y editá `.env`:
+```env
+GEMINI_API_KEY=tu_clave_aqui
+GEMINI_MODEL=gemini-2.5-flash
 ```
 
-### 5. Ejecutar
-Abrí el archivo `main.py` y modificá la variable `programa_ejemplo` para insertar el programa académico analítico real de tu materia.
+**Opción B (Variable de Entorno):**
+- **PowerShell (Windows):** `$env:GEMINI_API_KEY="TU_CLAVE_AQUI"`
+- **Bash (Mac/Linux):** `export GEMINI_API_KEY="TU_CLAVE_AQUI"`
 
-Luego, ejecutá:
+---
+
+## 💻 Modos de Ejecución
+
+### Ejecución básica
+Usa el programa analítico de ejemplo por defecto:
 ```bash
 python main.py
 ```
 
-En la consola verás paso a paso qué agente está trabajando. Al finalizar, obtendrás el archivo `propuesta_aula_auditada.md` listo para subir a tu plataforma o presentar a tu equipo.
+### Usar tu propio programa académico desde un archivo
+```bash
+python main.py --input ejemplos/programa_ejemplo.txt
+```
+
+### Personalizar el archivo de salida
+```bash
+python main.py --input mi_materia.txt --output resultado_moodle.md
+```
+
+### Cambiar de modelo
+```bash
+python main.py --model gemini-2.5-pro
+```
+
+### Modo Simulación (Dry-Run / Sin API Key)
+Probá todo el pipeline inmediatamente sin costo ni credenciales:
+```bash
+python main.py --mock --verbose
+```
+
+Al finalizar la ejecución, se generará el archivo `propuesta_aula_auditada.md` listo para ser implementado en tu plataforma Moodle.
